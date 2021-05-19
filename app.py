@@ -6,7 +6,7 @@ from flask_wtf import FlaskForm, form
 #from login import generate_password_hash
 from wtforms import StringField, PasswordField,SubmitField
 from wtforms.validators import DataRequired, Length, EqualTo, Email, InputRequired, length
-from civic import Election_info
+from civic import Election_info, validateAddress
 from flask_login import current_user, login_user, login_required, logout_user, LoginManager
 from models import db, login, UserModel
 
@@ -64,8 +64,7 @@ def homepage():
 @app.route('/Election_Info')
 @login_required
 def Election():
-    print(Election_info(''))
-    return render_template('Election_Info.html', electioninfo=Election_info(''))
+        return render_template('Election_Info.html', electioninfo=Election_info(''))
 
 @app.route('/about')
 def about():
@@ -84,10 +83,17 @@ def register():
         address = request.form["address"]
         existinguser = UserModel.query.filter_by(username=username).first()
         if existinguser is None:
-            user = UserModel(email, username, pw, address)
-            db.session.add(user)
-            db.session.commit()
-            return redirect('/Election_Info')
+            response = validateAddress(address)
+            validaddress = False
+            for item in response['results']:
+                if(item['geometry']['location_type']!= 'APPROXIMATE'):
+                    user = UserModel(email, username, pw, address)
+                    db.session.add(user)
+                    db.session.commit()
+                    validaddress = True
+                    return redirect('/Election_Info')
+            if(not validaddress):
+               return render_template('register.html', form=form)
         else:
             return render_template('login.html', form=form)
     else:
