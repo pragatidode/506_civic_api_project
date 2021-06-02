@@ -19,14 +19,6 @@ class loginForm(FlaskForm):
     username = StringField('Username', [InputRequired(), Length(min=6, max=50)])
     password = PasswordField(label='Password',validators=[DataRequired(), Length(min=6, max=16)])
     submit = SubmitField(label='Login')
-app=Flask(__name__)
-app.secret_key='a secret'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///login.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db.init_app(app)
-login.init_app(app)
-login.login_view = 'login'
 
 class RegisterForm(FlaskForm):
 
@@ -35,6 +27,11 @@ class RegisterForm(FlaskForm):
     password = PasswordField(label='Password', validators=[DataRequired(), Length(min=6, max=16)])
     address = StringField('Address', [InputRequired()])
     submit = SubmitField(label='Register')
+
+class ChangeAddressForm(FlaskForm):
+    address = StringField('Address', [InputRequired()])
+    submit = SubmitField(label='Update')
+
 
 app=Flask(__name__)
 app.secret_key='a secret'
@@ -102,7 +99,6 @@ def register():
             return render_template('login.html', form=form)
     else:
         return render_template('register.html', form=form)
-    #return redirect('/login')
             
 @app.route('/login',methods=["POST", "GET"])
 def login():
@@ -125,6 +121,27 @@ def login():
             return render_template('login.html',form=form)
     else:
         return render_template('login.html',form=form)
+
+
+@app.route('/change_address', methods=['GET', 'POST'])
+def change_address():
+    if current_user.is_authenticated == False:
+        return redirect('/login')
+    form=ChangeAddressForm()
+    if request.method == "POST":
+        address = request.form["address"]
+        response = validateAddress(address)
+        validaddress = False
+        for item in response['results']:
+            if(item['geometry']['location_type']!= 'APPROXIMATE'):
+                current_user.address = address
+                db.session.commit()
+                validaddress = True
+                return redirect('/civic')
+        if(not validaddress):
+               return render_template('change_address.html', form=form)
+    else:
+        return render_template('change_address.html', form=form)
 
 @app.route('/logout')
 def logout():
