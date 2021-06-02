@@ -2,12 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5614a88-f1e7-4c4a-a14c-214accb9f2cb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/error.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/506_capstone_project.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login.db" beforeDir="false" afterPath="$PROJECT_DIR$/login.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Election_Info.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Election_Info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/civic.py" beforeDir="false" afterPath="$PROJECT_DIR$/civic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/error.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,22 +129,22 @@
       <screen x="0" y="0" width="1368" height="872" />
     </state>
     <state x="465" y="191" key="FileChooserDialogImpl/0.0.1368.872@0.0.1368.872" timestamp="1621463905948" />
-    <state width="1348" height="164" key="GridCell.Tab.0.bottom" timestamp="1622670654466">
+    <state width="1348" height="227" key="GridCell.Tab.0.bottom" timestamp="1622670783758">
       <screen x="0" y="0" width="1368" height="872" />
     </state>
-    <state width="1348" height="164" key="GridCell.Tab.0.bottom/0.0.1368.872@0.0.1368.872" timestamp="1622670654466" />
-    <state width="1348" height="164" key="GridCell.Tab.0.center" timestamp="1622670654466">
+    <state width="1348" height="227" key="GridCell.Tab.0.bottom/0.0.1368.872@0.0.1368.872" timestamp="1622670783758" />
+    <state width="1348" height="227" key="GridCell.Tab.0.center" timestamp="1622670783758">
       <screen x="0" y="0" width="1368" height="872" />
     </state>
-    <state width="1348" height="164" key="GridCell.Tab.0.center/0.0.1368.872@0.0.1368.872" timestamp="1622670654466" />
-    <state width="1348" height="164" key="GridCell.Tab.0.left" timestamp="1622670654466">
+    <state width="1348" height="227" key="GridCell.Tab.0.center/0.0.1368.872@0.0.1368.872" timestamp="1622670783758" />
+    <state width="1348" height="227" key="GridCell.Tab.0.left" timestamp="1622670783758">
       <screen x="0" y="0" width="1368" height="872" />
     </state>
-    <state width="1348" height="164" key="GridCell.Tab.0.left/0.0.1368.872@0.0.1368.872" timestamp="1622670654466" />
-    <state width="1348" height="164" key="GridCell.Tab.0.right" timestamp="1622670654466">
+    <state width="1348" height="227" key="GridCell.Tab.0.left/0.0.1368.872@0.0.1368.872" timestamp="1622670783758" />
+    <state width="1348" height="227" key="GridCell.Tab.0.right" timestamp="1622670783758">
       <screen x="0" y="0" width="1368" height="872" />
     </state>
-    <state width="1348" height="164" key="GridCell.Tab.0.right/0.0.1368.872@0.0.1368.872" timestamp="1622670654466" />
+    <state width="1348" height="227" key="GridCell.Tab.0.right/0.0.1368.872@0.0.1368.872" timestamp="1622670783758" />
     <state width="1348" height="164" key="GridCell.Tab.1.bottom" timestamp="1622670654467">
       <screen x="0" y="0" width="1368" height="872" />
     </state>
@@ -178,26 +181,5 @@
       <screen x="0" y="0" width="1368" height="872" />
     </state>
     <state x="347" y="184" width="672" height="678" key="search.everywhere.popup/0.0.1368.872@0.0.1368.872" timestamp="1622667448336" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app.py</url>
-          <line>79</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app.py</url>
-          <line>124</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app.py</url>
-          <line>101</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
