@@ -33,7 +33,7 @@ class ChangeAddressForm(FlaskForm):
 
 app=Flask(__name__)
 app.secret_key='a secret'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///login.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/login.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
