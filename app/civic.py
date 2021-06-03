@@ -33,11 +33,13 @@ def validateAddress(address):
 def find_directions(response, address):
     origin = address.replace(" ", "%20").replace(",", "%2C")
     url = "https://www.google.com/maps/dir/?api=1&"
-    if response["pollingLocations"]:
+    try:
         for polling_location in response["pollingLocations"][0:5]:
             destination = polling_location["address"]["line1"] + "," +  polling_location["address"]["city"]
             destination = destination.replace(" ", "%20").replace(",","%2C")
             polling_location["directions"] = url + "origin=" + origin + "&destination=" + destination
+    except TypeError:
+    	return None
     try:
         for early_site in response["earlyVoteSites"][0:5]:
             destination = early_site["address"]["line1"] + "," + early_site["address"]["city"]

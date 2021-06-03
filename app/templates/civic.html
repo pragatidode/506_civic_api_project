@@ -33,7 +33,7 @@
 
 <h2>Location: {{address}}</h2>
 
-<p>Upcoming Elections:</p> 
+<h3>Upcoming Elections:</h3> 
 
 {% if election_data %}
 <p>{{election_data["election"]["name"]}} on {{election_data["election"]["electionDay"]}}</p>
@@ -102,7 +102,7 @@ No upcoming elections.
 {% endif %}
 
 
-<p>Representatives:</p>
+<h3>Representatives:</h3>
 {% for office in offices %}
 {% for official in office["officialIndices"] %}
 <button type="button" class="collapsible">{{office["name"]}}</button>
