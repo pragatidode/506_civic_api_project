@@ -29,3 +29,27 @@ def validateAddress(address):
     response = requests.get(url=geocodeapi)
     data = response.json()
     return data
+    
+def find_directions(response, address):
+    origin = address.replace(" ", "%20").replace(",", "%2C")
+    url = "https://www.google.com/maps/dir/?api=1&"
+    if response["pollingLocations"]:
+        for polling_location in response["pollingLocations"][0:5]:
+            destination = polling_location["address"]["line1"] + "," +  polling_location["address"]["city"]
+            destination = destination.replace(" ", "%20").replace(",","%2C")
+            polling_location["directions"] = url + "origin=" + origin + "&destination=" + destination
+    try:
+        for early_site in response["earlyVoteSites"][0:5]:
+            destination = early_site["address"]["line1"] + "," + early_site["address"]["city"]
+            destination = destination.replace(" ", "%20").replace(",", "%2C")
+            early_site["directions"] = url + "origin=" + origin + "&destination=" + destination
+    except KeyError:
+        pass
+    try:
+        for dropoff in response["dropOffLocations"][0:5]:
+            destination = dropoff["address"]["line1"] + "," + dropoff["address"]["city"]
+            destination = destination.replace(" ", "%20").replace(",", "%2C")
+            dropoff["directions"] = url + "origin=" + origin + "&destination=" + destination
+    except KeyError:
+        pass
+    return response

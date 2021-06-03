@@ -38,11 +38,25 @@
 {% if election_data %}
 <p>{{election_data["election"]["name"]}} on {{election_data["election"]["electionDay"]}}</p>
 
+<button type="button" class="collapsible">Contests</button>
+<div class="content">
+{% for contest in election_data["contests"] %}
+<p>Type: {{contest["type"]}} <br/>
+Office: {{contest["office"]}} <br/>
+Candidates: <br/>
+{% for candidate in contest["candidates"] %}
+&emsp;Name: {{candidate["name"]}}<br/>
+&emsp;Party: {{candidate["party"]}}<br/>
+{% endfor %}
+</p>
+{% endfor %}
+</div>
+
 <button type="button" class="collapsible">Polling Locations</button>
 <div class="content">
 {% for polling_location in election_data["pollingLocations"][0:5] %}
 <p>Location: {{polling_location["address"]["locationName"]}} <br/>
-Address: {{polling_location["address"]["line1"]}} {{polling_location["address"]["line2"]}} {{polling_location["address"]["line3"]}}, {{polling_location["address"]["city"]}} <br/>
+Address: <a href={{polling_location["directions"]}}> {{polling_location["address"]["line1"]}} {{polling_location["address"]["line2"]}} {{polling_location["address"]["line3"]}}, {{polling_location["address"]["city"]}} </a><br/>
 Polling Dates: {{polling_location["startDate"]}} - {{polling_location["endDate"]}} <br/>
 Polling Hours: {{polling_location["pollingHours"]}}</p>
 {% endfor %}
@@ -53,7 +67,7 @@ Polling Hours: {{polling_location["pollingHours"]}}</p>
 <div class="content">
 {% for early_site in election_data["earlyVoteSites"][0:5] %}
 <p>Location: {{early_site["address"]["locationName"]}} <br/>
-Address: {{early_site["address"]["line1"]}} {{early_site["address"]["line2"]}} {{early_site["address"]["line3"]}}, {{early_site["address"]["city"]}} <br/>
+Address: <a href={{early_site["directions"]}}> {{early_site["address"]["line1"]}} {{early_site["address"]["line2"]}} {{early_site["address"]["line3"]}}, {{early_site["address"]["city"]}} </a><br/>
 Polling Dates: {{early_site["startDate"]}} - {{early_site["endDate"]}} <br/>
 Polling Hours: {{early_site["pollingHours"]}}</p>
 {% endfor %}
@@ -65,7 +79,7 @@ Polling Hours: {{early_site["pollingHours"]}}</p>
 <div class="content">
 {% for drop_off in election_data["dropOffLocations"][0:5] %}
 <p>Location: {{drop_off["address"]["locationName"]}} <br/>
-Address: {{drop_off["address"]["line1"]}} {{drop_off["address"]["line2"]}} {{drop_off["address"]["line3"]}}, {{drop_off["address"]["city"]}} <br/>
+Address: <a href={{drop_off["directions"]}}> {{drop_off["address"]["line1"]}} {{drop_off["address"]["line2"]}} {{drop_off["address"]["line3"]}}, {{drop_off["address"]["city"]}} <a/><br/>
 Polling Dates: {{drop_off["startDate"]}} - {{drop_off["endDate"]}} <br/>
 Polling Hours: {{drop_off["pollingHours"]}}</p>
 {% endfor %}
@@ -75,12 +89,12 @@ Polling Hours: {{drop_off["pollingHours"]}}</p>
 <button type="button" class="collapsible">Additional Resources</button>
 <div class="content">
 <p> 
-<a href={{election_data["state"][0]["electionAdministrationBody"]["electionInfoUrl"]}}> Election Info<a/><br/> 
-<a href={{election_data["state"][0]["electionAdministrationBody"]["electionRegistrationUrl"]}}> Election Registration Info<a/><br/> 
-<a href={{election_data["state"][0]["electionAdministrationBody"]["electionRegistrationConfirmationUrl"]}}> Election Registration Confirmation<a/><br/> 
-<a href={{election_data["state"][0]["electionAdministrationBody"]["absenteeVotingInfoUrl"]}}> Absentee Voting Info<a/><br/> 
-<a href={{election_data["state"][0]["electionAdministrationBody"]["ballotInfoUrl"]}}> Ballot Info<a/><br/> 
-<a href={{election_data["state"][0]["electionAdministrationBody"]["electionRulesUrl"]}}> Election Rules<a/><br/> 
+<a href={{election_data["state"][0]["electionAdministrationBody"]["electionInfoUrl"]}}> Election Info</a><br/> 
+<a href={{election_data["state"][0]["electionAdministrationBody"]["electionRegistrationUrl"]}}> Election Registration Info</a><br/> 
+<a href={{election_data["state"][0]["electionAdministrationBody"]["electionRegistrationConfirmationUrl"]}}> Election Registration Confirmation</a><br/> 
+<a href={{election_data["state"][0]["electionAdministrationBody"]["absenteeVotingInfoUrl"]}}> Absentee Voting Info</a><br/> 
+<a href={{election_data["state"][0]["electionAdministrationBody"]["ballotInfoUrl"]}}> Ballot Info</a><br/> 
+<a href={{election_data["state"][0]["electionAdministrationBody"]["electionRulesUrl"]}}> Election Rules</a><br/> 
 </p>
 </div>
 {% else %}
@@ -110,7 +124,7 @@ Email: {% if officials[official]["emails"] %}
 None found.<br/>
 {% endif %}
 Website: {% if officials[official]["urls"] %}
-{{officials[official]["urls"][0]}}<br/>
+<a href="{{officials[official]['urls'][0]}}" >  {{officials[official]["urls"][0]}}</a><br/>
 {% endif %}
 Other Contacts:<br/> 
 {% if officials[official]["channels"] %}

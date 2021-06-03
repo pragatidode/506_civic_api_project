@@ -6,7 +6,7 @@ from flask_wtf import FlaskForm, form
 #from login import generate_password_hash
 from wtforms import StringField, PasswordField,SubmitField
 from wtforms.validators import DataRequired, Length, EqualTo, Email, InputRequired, length
-from civic import find_elections, find_reps, validateAddress
+from civic import find_elections, find_reps, validateAddress, find_directions
 from flask_login import current_user, login_user, login_required, logout_user, LoginManager
 from models import db, login, UserModel
 
@@ -65,7 +65,8 @@ def civic():
 	repdata=find_reps(address)
 	officials = repdata["officials"]
 	offices = repdata["offices"]
-	return render_template('civic.html', address=address, election_data=find_elections(address), officials=officials, offices=offices)
+	election_response = find_elections(address)
+	return render_template('civic.html', address=address, election_data=find_directions(election_response, address), officials=officials, offices=offices)
 
 @app.route('/about')
 def about():
