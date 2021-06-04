@@ -2,6 +2,13 @@
 {% block title %}Login{% endblock %}
 {% block content %}
 <div class="container w-50">
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="notification is-danger">
+        {{ messages[0] }}
+    </div>
+{% endif %}
+{% endwith %}
 <form action="" method="post">
   {{ form.csrf_token }}
   <div class="mb-3">
@@ -30,5 +37,6 @@
   </div>
   {{form.submit}}
 </form>
+<button type="button" class="btn"><a href="/register">Register</a></button>
 </div>
 {% endblock %}

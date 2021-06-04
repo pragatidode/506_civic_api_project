@@ -52,12 +52,12 @@ def baseSite():
 @app.route('/civic')
 @login_required
 def civic():
-	address = current_user.address
-	repdata=find_reps(address)
-	officials = repdata["officials"]
-	offices = repdata["offices"]
-	election_response = find_elections(address)
-	return render_template('civic.html', address=address, election_data=find_directions(election_response, address), officials=officials, offices=offices)
+    address = current_user.address
+    repdata=find_reps(address)
+    officials = repdata["officials"]
+    offices = repdata["offices"]
+    election_response = find_elections(address)
+    return render_template('civic.html', address=address, election_data=find_directions(election_response, address), officials=officials, offices=offices)
 
 @app.route('/about')
 def about():
@@ -65,43 +65,39 @@ def about():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    form = RegisterForm()
     try:
-        if current_user.is_authenticated:
-            return redirect('/civic')
-        form = RegisterForm()
-        if request.method == "POST":
-            email = request.form["email"]
-            try:
-                # Validate.
-                valid = validate_email(email)
-                # Update with the normalized form.
-                email = valid.email
-            except EmailNotValidError as e:
-                flash("Invalid email")
-                return render_template('register.html', form=form)
-            username = request.form["username"]
-            existingusername = UserModel.query.filter_by(username=form.username.data).first()
-            existingemail = UserModel.query.filter_by(email=form.email.data).first()
-            pw = request.form["password"]
-            if existingusername is None and existingemail is None:
-                address = request.form["address"]
-                response = validateAddress(address)
-                if len(response['results'])==0:
-                    flash('Enter valid address')
+        if form.validate_on_submit():
+            if request.method == "POST":
+                username=request.form["username"]
+                pw=request.form["password"]
+                email=request.form["email"]
+                address=request.form["address"]
+                valid_address=validateAddress(address)
+                user = UserModel.query.filter_by(username = username).first()
+                email_address = UserModel.query.filter_by(email = email).first()
+                try:
+                    valid = validate_email(email)
+                except:
+                    flash('Invalid email address.')
                     return render_template('register.html', form=form)
-                validaddress = False
-            for item in response['results']:
-                if (item['geometry']['location_type'] != 'APPROXIMATE'):
-                    user = UserModel(email, username, pw, address)
-                    db.session.add(user)
+                if user:
+                    flash('Username already in use.')
+                    return render_template('register.html', form=form)
+                elif email_address:
+                    flash('Email already in use.')
+                    return render_template('register.html', form=form)
+                elif len(valid_address['results'])==0:
+                    flash('Invalid address.')
+                    return render_template('register.html', form=form)
+                else:
+                    new_user = UserModel(username=username)
+                    new_user.set_password(pw)
+                    new_user.email=email
+                    db.session.add(new_user)
                     db.session.commit()
-                    validaddress = True
-                    return redirect('/civic')
-                if (not validaddress):
-                    flash("Enter valid address")
-                    return render_template('register.html', form=form)
+                    return redirect('/login')
             else:
-                flash(Markup('Exiting user, please click <a href="/login" class="alert-link">here</a> to login'))
                 return render_template('register.html', form=form)
         else:
             return render_template('register.html', form=form)
@@ -110,19 +106,19 @@ def register():
 
 @app.route('/login', methods=["POST", "GET"])
 def login():
+    form = loginForm()
     try:
         if current_user.is_authenticated:
             return redirect('/civic')
-        form = loginForm()
         if request.method == "POST":
             username = request.form["username"]
             pw = request.form["password"]
             user = UserModel.query.filter_by(username=username).first()
-            print(user)
-            if user is not None and user.check_password(pw):
+            if user and user.check_password(pw):
                 login_user(user)
                 return redirect('/civic')
             else:
+                flash("Invalid Login Details")
                 return render_template('login.html', form=form)
         else:
             return render_template('login.html', form=form)
