@@ -2,6 +2,13 @@
 {% block title %}Register{% endblock %}
 {% block content %}
 <div class="container w-50">
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="notification is-danger">
+        {{ messages[0] }} Try again or Login <a href="/login">here</a>.
+    </div>
+{% endif %}
+{% endwith %}
 <form action="" method="post">
   {{ form.csrf_token }}
   <div class="mb-3">
